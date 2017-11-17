@@ -13,6 +13,7 @@ node{
                 sh "./gradlew assembleRelease"
             }
         } catch (error) {
+
             throw error
         }
     }
