@@ -6,8 +6,11 @@ node{
             stage("build.clean"){
                 sh "./gradlew clean"
             }
-            stage("build.package"){
+            stage("build.debug"){
                 sh "./gradlew assembleDebug"
+            }
+            stage("build.Release"){
+                sh "./gradlew assembleRelease"
             }
         } catch (error) {
             throw error
