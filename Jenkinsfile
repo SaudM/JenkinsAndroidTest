@@ -14,7 +14,6 @@ node{
             }
 
             stage("upload.file"){
-
                 sh "./seafile_upload_plus.py"
             }
         } catch (error) {
