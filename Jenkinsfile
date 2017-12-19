@@ -12,6 +12,10 @@ node{
             stage('file.save') {
                     archiveArtifacts artifacts: 'app/build/outputs/apk/debug/*.apk', fingerprint: true
             }
+
+            stage("build.debug"){
+                sh "./seafile_upload_plus.py fe10fc73-c32c-43d8-9ea0-364dd175a7cf  /app/build/outputs/apk/debug/app-debug.apk"
+            }
         } catch (error) {
             throw error
         }
