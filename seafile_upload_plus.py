@@ -54,7 +54,7 @@ for file in files:  # 遍历文件夹
         continue
     if not file.startswith('app'):
         continue
-    filename = open(path + "/" + file) # 打开文件
+    filename = path + "/" + file
     files = {'file': open(filename, 'rb')}
     r = requests.post(
         url, data={'filename': filename, 'parent_dir': '/Android_APK/jenkins'},
