@@ -45,7 +45,7 @@ import os
 
 # filename = sys.argv[2]
 url = upload_link
-path = "app/build/outputs/apk/debug/"  # 文件夹目录
+path = "app/build/outputs/apk/debug"  # 文件夹目录
 files = os.listdir(path)  # 得到文件夹下的所有文件名称
 s = []
 for file in files:  # 遍历文件夹
@@ -54,7 +54,7 @@ for file in files:  # 遍历文件夹
         continue
     if not file.startswith('app'):
         continue
-    filename = open(path + "/" + file);  # 打开文件
+    filename = open(path + "/" + file) # 打开文件
     files = {'file': open(filename, 'rb')}
     r = requests.post(
         url, data={'filename': filename, 'parent_dir': '/Android_APK/jenkins'},
