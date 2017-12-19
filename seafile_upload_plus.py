@@ -16,7 +16,7 @@ def main():
     get_token_url = '{}/api2/auth-token/'.format(hostname)
     r = requests.post(get_token_url, data={'username': username, 'password': password})
     token = json.loads(r.content)['token']
-
+    print 'token: ', token
 
     """
     Get version
@@ -30,6 +30,7 @@ def main():
             if 'baseApkVersionName' in line:
                 version = line.split("'")[1]
     dir_name = 'v' + version + '_channel'
+    print 'dir_name: ', dir_name
 
 
     """
@@ -37,9 +38,10 @@ def main():
     """
     repo_id = 'fe10fc73-c32c-43d8-9ea0-364dd175a7cf'
     create_dir_url = '{}/api2/repos/{}/dir/?p=/Android_APK/{}'.format(hostname, repo_id, dir_name)
-    requests.delete(create_dir_url, data={'operation': 'mkdir'}, headers={'Authorization': 'Token ' + token})
-    requests.post(create_dir_url, data={'operation': 'mkdir'}, headers={'Authorization': 'Token ' + token})
-
+    r = requests.delete(create_dir_url, data={'operation': 'mkdir'}, headers={'Authorization': 'Token ' + token})
+    print 'delete dir: ', r.status_code, r.content
+    r = requests.post(create_dir_url, data={'operation': 'mkdir'}, headers={'Authorization': 'Token ' + token})
+    print 'create dir: ', r.status_code, r.content
 
     """
     Get upload link
@@ -47,6 +49,7 @@ def main():
     upload_link_url = '{}/api2/repos/{}/upload-link/'.format(hostname, repo_id)
     r = requests.get(upload_link_url, headers={'Authorization': 'Token ' + token})
     upload_link = json.loads(r.content)
+    print 'get upload_link: ', r.status_code, r.content
 
 
     """
@@ -63,8 +66,10 @@ def main():
             continue
         filename = path + "/" + file
         with open(filename, 'rb') as f:
-            requests.post(url, data={'filename': filename, 'parent_dir': '/Android_APK/jenkins'},
+            r = requests.post(url, data={'filename': filename, 'parent_dir': '/Android_APK/jenkins'},
                           files={'file': f}, headers={'Authorization': 'Token ' + token})
+            print 'Upload file: ', r.status_code, r.content
+
 
 
 if __name__ == '__main__':
