@@ -14,8 +14,7 @@ node{
             }
 
             stage("upload.file"){
-                String path = $BUILD_URL
-                sh "./seafile_upload_plus.py fe10fc73-c32c-43d8-9ea0-364dd175a7cf  path+app/build/outputs/apk/debug/app-debug.apk"
+                sh "./seafile_upload_plus.py fe10fc73-c32c-43d8-9ea0-364dd175a7cf  $BUILD_URLapp/build/outputs/apk/debug/app-debug.apk"
             }
         } catch (error) {
             throw error
