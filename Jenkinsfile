@@ -15,7 +15,7 @@ node{
 
             stage("upload.file"){
 
-                sh "./seafile_upload_plus.py fe10fc73-c32c-43d8-9ea0-364dd175a7cf $WORKSPACE/app/build/outputs/apk/debug/`find $WORKSPACE/app/build/outputs/apk/ -name app*`"
+                sh "./seafile_upload_plus.py fe10fc73-c32c-43d8-9ea0-364dd175a7cf $WORKSPACE/app/build/outputs/apk/debug/`find $WORKSPACE/app/build/outputs/apk/ -name 'app*'`"
             }
         } catch (error) {
             throw error
