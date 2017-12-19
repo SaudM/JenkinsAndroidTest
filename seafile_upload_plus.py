@@ -47,4 +47,3 @@ r = requests.post(
 		url, data={'filename': filename, 'parent_dir': '/Android_APK/jenkins'},
 		files=files, headers={'Authorization': 'Token ' + token}) 
 files['file'].close()
-
