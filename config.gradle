@@ -1,0 +1,60 @@
+ext {
+    config = [
+            tinkerEnable      : true,
+            baseApkDir        : 'yanxishe-0703-11-41-33',//基线版本apk存放目录
+            patchVersion      : 'patch-1.0',//补丁版本号 自定义根tinkerId无关
+            patchVersionLog   : '1.基准包',//补丁版本日志  每次打补丁包都要重新写
+            baseApkVersionName: '2.3.11',//打补丁时不要改动
+            baseApkVersionCode: gitVersionCode(),
+            patchRelaseUser   : getReleaseUserName(),//发布作者
+            patchRelaseTime   : releaseTime(),//发布时间
+            tinkerId          : getTinkerIdValue(),//tinkerId
+    ]
+}
+
+
+def gitVersionCode() {//获取自动版本号
+    try {
+        def cmd = 'git rev-list HEAD --count'
+        cmd.execute().text.trim().toInteger() + 10318//10318是使用自动获取版本号之前手动设置的最后一个版本号
+    } catch (Exception e) {
+    }
+}
+
+
+def gitSha() {
+    try {
+        String gitRev = 'git rev-parse --short HEAD'.execute(null, project.rootDir).text.trim()
+        if (gitRev == null) {
+            throw new GradleException("can't get git rev, you should add git to system path or just input test value, such as 'testTinkerId'")
+        }
+        return gitRev + "_" + System.currentTimeMillis()
+    } catch (Exception e) {
+        throw new GradleException("can't get git rev, you should add git to system path or just input test value, such as 'testTinkerId'")
+    }
+}
+
+def gitUserName() {
+    try {
+        String gitRev = 'git config user.name'.execute(null, project.rootDir).text.trim()
+        if (gitRev == null) {
+            throw new GradleException("can't get git rev, you should add git to system path or just input test value, such as 'testTinkerId'")
+        }
+        return gitRev
+    } catch (Exception e) {
+        throw new GradleException("can't get git rev, you should add git to system path or just input test value, such as 'testTinkerId'")
+    }
+}
+//tinkerId获取逻辑
+def getTinkerIdValue() {
+    return hasProperty("TINKER_ID") ? TINKER_ID : gitSha()
+}
+//获取当前作者用户名
+def getReleaseUserName() {
+    return hasProperty("USER_NAME") ? USER_NAME : gitUserName()
+}
+
+def releaseTime() {
+    return new Date(System.currentTimeMillis()).format("yyyy-MM-dd-HH-mm")
+}
+
