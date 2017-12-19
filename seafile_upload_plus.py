@@ -66,7 +66,7 @@ def main():
             continue
         filename = path + "/" + file
         with open(filename, 'rb') as f:
-            r = requests.post(url, data={'filename': filename, 'parent_dir': '/Android_APK/jenkins'},
+            r = requests.post(url, data={'filename': filename, 'parent_dir': '/Android_APK/{}'.format(dir_name)},
                           files={'file': f}, headers={'Authorization': 'Token ' + token})
             print 'Upload file: ', r.status_code, r.content
 
