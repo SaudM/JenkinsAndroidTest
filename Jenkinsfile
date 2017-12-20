@@ -16,6 +16,12 @@ node{
             stage("upload.file"){
                 sh "./seafile_upload_plus.py"
             }
+
+             stage("send.email"){
+                emailext body: '这是一个测试邮件', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'test', to: 'maxiaohong@hundun.cn'
+            }
+
+
         } catch (error) {
             throw error
         }
