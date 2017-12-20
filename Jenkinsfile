@@ -7,7 +7,7 @@ node{
                 sh "./gradlew clean"
             }
             stage("build.debug"){
-                sh "./gradlew assembleDebug"
+                sh "./gradlew assemble"
             }
             stage('file.save') {
                     archiveArtifacts artifacts: 'app/build/outputs/apk/debug/*.apk', fingerprint: true
