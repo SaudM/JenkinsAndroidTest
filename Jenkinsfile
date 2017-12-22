@@ -1,7 +1,7 @@
 node{
         try {
             stage("build.clone"){
-                checkout scm
+                checkout scmgit
             }
             stage("build.clean"){
                 sh "./gradlew clean"
