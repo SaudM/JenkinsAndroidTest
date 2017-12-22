@@ -30,7 +30,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        Toast.makeText(this, "master", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "test", Toast.LENGTH_LONG).show()
     }
 }
